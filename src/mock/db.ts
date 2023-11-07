@@ -45,7 +45,33 @@ export const db: Db = {
       scriptUrl:
         "https://workspace.navifyportal-dev.roche.com/widgets/eos/wrapper.js",
       tag: "widget-wrapper",
-      title: "EOS Test Widget",
+      title: "Navify monitoring",
+    },
+    {
+      id: "logger",
+      active: true,
+      availableSizes: [
+        {
+          cols: 1,
+          rows: 2,
+        },
+      ],
+      attributes: {
+        value: {
+          binding: "in_out",
+          type: "number",
+          title: "Value",
+        },
+      },
+      icon: "https://workspace.navifyportal-dev.roche.com/media/icons/icon_3.svg",
+      information: "Test EOS widget",
+      previewImage:
+        "https://workspace.navifyportal-dev.roche.com/media/icons/icon_3.svg",
+      productName: "Infinity",
+      scriptUrl:
+        "https://workspace.navifyportal-dev.roche.com/widgets/eos/wrapper.js",
+      tag: "widget-wrapper",
+      title: "Logger ",
     },
   ],
   dashboards: [
@@ -114,6 +140,23 @@ export const db: Db = {
             },
             days: {
               variable: "counter2",
+            },
+          },
+        },
+        {
+          id: "logger-001",
+          widgetTypeId: "logger",
+          workspaceConfig: {
+            cols: 1,
+            rows: 1,
+            x: 1,
+            y: 1,
+            country: "es",
+            language: "es-es",
+          },
+          attributes: {
+            value: {
+              variable: "counter1",
             },
           },
         },

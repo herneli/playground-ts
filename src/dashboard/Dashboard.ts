@@ -35,10 +35,10 @@ export class Dashboard {
       for (const [variableKey, variableData] of Object.entries(
         dashboard.variables
       )) {
-        // The variable is initialized with a function
+        // Check if the variable is initialized with a  function
         if (variableData.defaultFunction) {
-          // If funtion is defined
           if (variableData.defaultFunction in VariableFunctions) {
+            // Set variable executng the function
             this.variables[variableKey] = VariableFunctions[
               variableData.defaultFunction
             ](variableData.defaultValue);
@@ -49,8 +49,8 @@ export class Dashboard {
               `Default function "${variableData.defaultFunction}" for variable "${variableKey}" not defined`
             );
           }
-          // The variable is initialized with a value
         } else {
+          // Set variable using the default value
           this.variables[variableKey] = variableData.defaultValue;
         }
       }
@@ -86,6 +86,13 @@ export class Dashboard {
             attributes: attributes,
           },
         });
+
+        if (widgetConfiguration.id === "nmon-tat-001")
+          setInterval(() => {
+            this.setVariablesFromWidget(widgetDefinition, widgetConfiguration, {
+              days: Math.floor(Math.random() * 100),
+            });
+          }, 5000);
       });
     }
   }
@@ -105,22 +112,26 @@ export class Dashboard {
       attributeDefinitionKey,
       attributeDefinitionValue,
     ] of Object.entries(widgetDefinition.attributes)) {
+      // Check binding type
       switch (attributeDefinitionValue.binding) {
+        // Settings
         case "setting":
           calculatedAttributes[attributeDefinitionKey] =
             attributeDefinitionValue.value;
           break;
+        // Variables configured
         case "in":
         case "in_out":
           const attributeConfiguration =
             widgetConfiguration.attributes[attributeDefinitionKey];
+
           if (!attributeConfiguration) {
             throw Error(
               `Missing configiration of attribute "${attributeDefinitionKey}" in widget "${widgetConfiguration.id}"`
             );
           }
-          console.log(attributeDefinitionValue);
-          console.log(attributeConfiguration);
+
+          // If attribute is assigned with variable
           if (
             (attributeConfiguration as AttributeVariable).variable !== undefined
           ) {
@@ -128,11 +139,15 @@ export class Dashboard {
               .variable;
             calculatedAttributes[attributeDefinitionKey] =
               variables[variableName];
+            // If attribute is assigned with a value
           } else {
             calculatedAttributes[attributeDefinitionKey] = (
               attributeConfiguration as AttributeValue
             ).value;
           }
+          break;
+        // Skip out variables
+        case "out":
           break;
         default:
           throw Error(
@@ -143,10 +158,45 @@ export class Dashboard {
     return calculatedAttributes;
   }
 
-  setVariable(key: string, value: any) {
+  setVariablesFromWidget(
+    widgetDefinition: WidgetDefinition,
+    widgetConfiguration: WidgetConfiguration,
+    attributes: StringMap<any>
+  ) {
+    const updatedVariables: StringMap<any> = {};
+    for (const [attributeKey, attributeValue] of Object.entries(attributes)) {
+      const attributeDefinition = widgetDefinition.attributes[attributeKey];
+      const attributeConfiguration =
+        widgetConfiguration.attributes[attributeKey];
+      if (
+        attributeDefinition.binding === "in_out" ||
+        attributeDefinition.binding === "out"
+      ) {
+        // Check if attribute is binded to a variable
+        if (
+          (attributeConfiguration as AttributeVariable).variable !== undefined
+        ) {
+          const variableName = (attributeConfiguration as AttributeVariable)
+            .variable;
+
+          if (this.variables[variableName] !== attributes[attributeKey]) {
+            updatedVariables[variableName] = attributes[attributeKey];
+          }
+        } else {
+          // Send warnign as the variable is out but bot binded
+          console.warn(`Attribute "${attributeKey}" not binded to a variable`);
+        }
+      }
+    }
+    if (Object.keys(updatedVariables).length > 0) {
+      this.setVariables(updatedVariables);
+    }
+  }
+
+  setVariables(variables: StringMap<any>) {
     this.variables = {
       ...this.variables,
-      [key]: value,
+      ...variables,
     };
 
     // Refresh widgets

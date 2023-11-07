@@ -9,10 +9,12 @@ dashboard.widgets.map((widget) => {
 });
 
 console.log("Set variable counter1");
-dashboard.setVariable("counter1", dashboard.variables.counter1 + 1);
+dashboard.setVariables({ counter1: dashboard.variables.counter1 + 1 });
 
-console.log("Set variable counter2");
-dashboard.setVariable("counter2", dashboard.variables.counter2 + 1);
+console.log();
+
+console.log("Set variable counter1");
+dashboard.setVariables({ counter2: dashboard.variables.counter2 + 1 });
 
 dashboard.widgets.map((widget) => {
   console.log({
