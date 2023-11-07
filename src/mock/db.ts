@@ -1,4 +1,4 @@
-import { Db } from "./models/dashboard.model";
+import { Db } from "../models/dashboard.model";
 
 export const db: Db = {
   widgets: [
@@ -49,17 +49,18 @@ export const db: Db = {
         counter1: {
           type: "integer",
           title: "Contador",
-          defaultValue: 0,
+          defaultValue: 10,
         },
         counter2: {
           type: "integer",
           title: "Contador",
-          defaultValue: 0,
+          defaultValue: 20,
         },
       },
       widgets: [
         {
           id: "nmon-tat-001",
+          widgetTypeId: "nmon-tat",
           workspaceConfig: {
             cols: 1,
             rows: 1,
@@ -76,10 +77,10 @@ export const db: Db = {
               variable: "counter1",
             },
           },
-          widgetTypeId: "nmon-tat",
         },
         {
           id: "nmon-tat-002",
+          widgetTypeId: "nmon-tat",
           workspaceConfig: {
             cols: 1,
             rows: 1,
@@ -96,7 +97,6 @@ export const db: Db = {
               variable: "counter2",
             },
           },
-          widgetTypeId: "nmon-tat",
         },
       ],
     },

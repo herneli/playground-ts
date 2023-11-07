@@ -1,13 +1,13 @@
-import { db } from "./db";
+import { db } from "../mock/db";
 import {
   AttributeValue,
   AttributeVariable,
   StringMap,
   WidgetConfiguration,
   WidgetDefinition,
-} from "./models/dashboard.model";
-import { WidgetProps } from "./models/widget-props.model";
-import { getChangedProperties } from "./utils/getChangedProps";
+} from "../models/dashboard.model";
+import { WidgetProps } from "../models/widget-props.model";
+import { getChangedProperties } from "../utils/getChangedProps";
 
 type Variables = StringMap<any>;
 
@@ -120,6 +120,10 @@ export class Dashboard {
     };
 
     // Refresh widgets
+    this.updateWidgetAttrbutes();
+  }
+
+  private updateWidgetAttrbutes() {
     for (const widget of this.widgets) {
       const attributes = this.calculateWidgetAttributes(
         widget.definition,
@@ -130,12 +134,14 @@ export class Dashboard {
 
       const props = getChangedProperties(attributes, widget.props.attributes);
       if (props.length > 0) {
+        console.log("------------------------------------");
         console.log(`Changed props in widget ${widget.configuration.id}`);
         for (const prop of props) {
           console.log(
-            `Prop ${prop}: ${widget.props.attributes[prop]} -> ${attributes[prop]}`
+            `"${prop}": ${widget.props.attributes[prop]} -> ${attributes[prop]}`
           );
         }
+        console.log("------------------------------------");
       }
       widget.props.attributes = attributes;
     }

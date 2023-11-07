@@ -5,14 +5,6 @@ export type Db = {
 
 export type StringMap<T> = { [key: string]: T };
 
-export type Dashboard = {
-  id: string;
-  variables: Variables;
-  widgets: WidgetConfiguration[];
-};
-
-export type Variables = StringMap<Variable>;
-
 export type PrimaryType =
   | "string"
   | "number"
@@ -27,12 +19,20 @@ export type Variable = {
   defaultValue: any;
 };
 
+export type Variables = StringMap<Variable>;
+
 export type AttributeVariable = {
   variable: string;
 };
 
 export type AttributeValue = {
   value: any;
+};
+
+export type Dashboard = {
+  id: string;
+  variables: Variables;
+  widgets: WidgetConfiguration[];
 };
 
 export type WidgetConfiguration = {
