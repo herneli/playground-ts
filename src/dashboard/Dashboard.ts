@@ -87,12 +87,12 @@ export class Dashboard {
           },
         });
 
-        // if (widgetConfiguration.id === "nmon-tat-001")
-        //   setInterval(() => {
-        //     this.setVariablesFromWidget(widgetDefinition, widgetConfiguration, {
-        //       days: Math.floor(Math.random() * 100),
-        //     });
-        //   }, 5000);
+        if (widgetConfiguration.id === "nmon-tat-001")
+          setInterval(() => {
+            this.setVariablesFromWidget(widgetDefinition, widgetConfiguration, {
+              days: Math.floor(Math.random() * 100),
+            });
+          }, 5000);
       });
     }
   }

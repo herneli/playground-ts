@@ -11,8 +11,8 @@ dashboard.widgets.map((widget) => {
   // console.log(util.inspect(dashboard, { depth: null, colors: true }));
 });
 
-// console.log("Set variable counter2");
-// dashboard.setVariables({ counter2: dashboard.variables.counter1 + 1 });
+console.log("Set variable counter1");
+dashboard.setVariables({ counter1: dashboard.variables.counter1 + 1 });
 
 // console.log();
 
@@ -25,3 +25,4 @@ dashboard.widgets.map((widget) => {
 //     props: widget.props,
 //   });
 // });
+// console.log(util.inspect(dashboard, { depth: null, colors: true }));
