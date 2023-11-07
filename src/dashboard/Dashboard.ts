@@ -13,8 +13,8 @@ import { VariableFunctions } from "../utils/variableFunctions";
 type Variables = StringMap<any>;
 
 type Widget = {
-  configuration: WidgetConfiguration;
   definition: WidgetDefinition;
+  configuration: WidgetConfiguration;
   props: WidgetProps;
 };
 
@@ -61,11 +61,11 @@ export class Dashboard {
       dashboard.widgets.forEach((widgetConfiguration) => {
         // Find widget definition in the database
         const widgetDefinition = db.widgets.find(
-          (w) => w.id === widgetConfiguration.widgetTypeId
+          (w) => w.id === widgetConfiguration.widgetId
         );
         if (!widgetDefinition) {
           throw Error(
-            `Widget type "${widgetConfiguration.widgetTypeId}" not defined`
+            `Widget type "${widgetConfiguration.widgetId}" not defined`
           );
         }
 
@@ -87,12 +87,12 @@ export class Dashboard {
           },
         });
 
-        if (widgetConfiguration.id === "nmon-tat-001")
-          setInterval(() => {
-            this.setVariablesFromWidget(widgetDefinition, widgetConfiguration, {
-              days: Math.floor(Math.random() * 100),
-            });
-          }, 5000);
+        // if (widgetConfiguration.id === "nmon-tat-001")
+        //   setInterval(() => {
+        //     this.setVariablesFromWidget(widgetDefinition, widgetConfiguration, {
+        //       days: Math.floor(Math.random() * 100),
+        //     });
+        //   }, 5000);
       });
     }
   }
@@ -151,7 +151,7 @@ export class Dashboard {
           break;
         default:
           throw Error(
-            `Attribute bining ${attributeDefinitionValue.binding} not valid`
+            `Attribute binding ${attributeDefinitionValue.binding} not valid`
           );
       }
     }

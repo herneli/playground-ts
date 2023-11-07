@@ -36,7 +36,7 @@ export type WidgetConfiguration = {
   id: string;
   workspaceConfig: WorkspaceConfig;
   attributes: StringMap<AttributeValue | AttributeVariable>;
-  widgetTypeId: string;
+  widgetId: string;
 };
 
 export type WorkspaceConfig = {

@@ -99,7 +99,7 @@ export const db: Db = {
       widgets: [
         {
           id: "nmon-tat-001",
-          widgetTypeId: "nmon-tat",
+          widgetId: "nmon-tat",
           workspaceConfig: {
             cols: 1,
             rows: 1,
@@ -122,7 +122,7 @@ export const db: Db = {
         },
         {
           id: "nmon-tat-002",
-          widgetTypeId: "nmon-tat",
+          widgetId: "nmon-tat",
           workspaceConfig: {
             cols: 1,
             rows: 1,
@@ -145,7 +145,7 @@ export const db: Db = {
         },
         {
           id: "logger-001",
-          widgetTypeId: "logger",
+          widgetId: "logger",
           workspaceConfig: {
             cols: 1,
             rows: 1,
