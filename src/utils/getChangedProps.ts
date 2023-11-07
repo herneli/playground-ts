@@ -1,4 +1,4 @@
-import { StringMap } from "../models/dashboard.model";
+import { StringMap } from "../models/common.model";
 
 export function getChangedProperties(
   obj1: StringMap<any>,

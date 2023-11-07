@@ -24,6 +24,12 @@ export const db: Db = {
           type: "string",
           title: "Laboratorio",
         },
+        initialDate: {
+          binding: "in_out",
+          isConfig: false,
+          type: "date",
+          title: "Fecha",
+        },
         days: {
           binding: "in_out",
           isConfig: false,
@@ -54,7 +60,14 @@ export const db: Db = {
         counter2: {
           type: "integer",
           title: "Contador",
-          defaultValue: 20,
+          defaultValue: 100,
+          defaultFunction: "getRandomInt",
+        },
+        dateFrom: {
+          type: "date",
+          title: "Date from",
+          defaultValue: -10,
+          defaultFunction: "currentDatePlusDays",
         },
       },
       widgets: [
@@ -66,8 +79,8 @@ export const db: Db = {
             rows: 1,
             x: 1,
             y: 1,
-            language: "en",
-            country: "us",
+            country: "es",
+            language: "es-es",
           },
           attributes: {
             laboratory: {
@@ -75,6 +88,9 @@ export const db: Db = {
             },
             days: {
               variable: "counter1",
+            },
+            initialDate: {
+              variable: "dateFrom",
             },
           },
         },
@@ -86,12 +102,15 @@ export const db: Db = {
             rows: 1,
             x: 1,
             y: 1,
-            language: "en",
-            country: "us",
+            country: "es",
+            language: "es-es",
           },
           attributes: {
             laboratory: {
               value: "Lab1",
+            },
+            initialDate: {
+              variable: "dateFrom",
             },
             days: {
               variable: "counter2",

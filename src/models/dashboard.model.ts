@@ -1,22 +1,19 @@
+import {
+  VariableFunctions,
+  VariableFunctionsDefinition,
+} from "../utils/variableFunctions";
+import { PrimaryType, StringMap } from "./common.model";
+
 export type Db = {
   widgets: WidgetDefinition[];
   dashboards: Dashboard[];
 };
 
-export type StringMap<T> = { [key: string]: T };
-
-export type PrimaryType =
-  | "string"
-  | "number"
-  | "integer"
-  | "boolean"
-  | "date"
-  | "datetime";
-
 export type Variable = {
   type: PrimaryType;
   title: string;
-  defaultValue: any;
+  defaultValue?: any;
+  defaultFunction?: keyof VariableFunctionsDefinition;
 };
 
 export type Variables = StringMap<Variable>;
